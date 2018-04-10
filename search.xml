@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title><![CDATA[Hexo、Next与中文menu配置问题]]></title>
+    <url>%2F2018%2F04%2F10%2FHexo%E3%80%81Next%E4%B8%8E%E4%B8%AD%E6%96%87menu%E9%85%8D%E7%BD%AE%E9%97%AE%E9%A2%98%2F</url>
+    <content type="text"><![CDATA[有趣的人总是在折腾 因为初次接触hexo与next主题，配置了language中文，menu还是显示原来的英文，官方文档又没有具体配置，通过长时间度娘才解决，故记录一下。 官方文档配置介绍 在Hexo配置文件_config.yml中修改language选项language: zh-Hans #默认、空都是en(鸟语),一些文档写”zh-Hans”，另外一些文档写”zh-CN” 问题所在next主题默认languages配置文件夹只有zh-CN、zh-HK、zh-TW。如果看教程是“zh-CN”的朋友就很幸运没有我的烦恼了。如果像我这样看到教程是”zh-Hans”的就有点悲剧，需要在themes/主题名/languages文件夹下新建一个zh-Hans.yml文件。 而这后面一部往往被教程忽视。 语言代码 那么”zh-CN”与”zh-Hans”有什么区别呢？zh-Hans 中文简体zh-Hant 中文繁体zh-CN 中文简体，中国大陆 后面的CN指的是使用范围zh-HK 中文繁体, 中国香港zh-TW 中文繁体, 中国台湾zh-SG 中文简体，新加坡-zh-SG 中文繁体，新加坡 一句话说zh-Hans是全宇宙通用的中文简体的合集，zh-CN是其中一个子集。]]></content>
+      <categories>
+        <category>Hexo</category>
+      </categories>
+      <tags>
+        <tag>Hexo</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[博客开张啦]]></title>
+    <url>%2F2018%2F04%2F10%2F%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%BC%A0%E5%95%A6%2F</url>
+    <content type="text"><![CDATA[有趣的人总是在折腾一直想搭建一个自己的blog空间记录学习、生活点滴。由于生活、经费、技术各种原因迟迟没有实现。终于拿起容易选择用hexo+github这种成熟又廉价的方式实现自己的想法。 2018年给自己一些小目标： 考上在职研究生 博客技术文档写20万字 搞掂婚纱照拍摄 年尾出游]]></content>
+      <categories>
+        <category>Hexo</category>
+      </categories>
+      <tags>
+        <tag>Hexo</tag>
+        <tag>Life</tag>
+        <tag>目标</tag>
+      </tags>
+  </entry>
+</search>
