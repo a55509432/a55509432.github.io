@@ -93,7 +93,7 @@
 </head>
 <body>
     <div class="container">
-        <h1>访问者信息记录</h1>
+        <h1 id="page-title">访问者信息记录</h1>
         
         <div class="info-section">
             <h2>基本信息</h2>
@@ -139,6 +139,13 @@
                 
                 // 显示IP信息
                 document.getElementById('client-ip').textContent = data.ip || '未知';
+                
+                // 获取UA信息
+                const userAgent = data.headers && data.headers['user-agent'] ? data.headers['user-agent'] : '未知';
+                
+                // 更新页面标题，显示IP和UA
+                const pageTitle = document.getElementById('page-title');
+                pageTitle.textContent = `访问者信息记录 - IP: ${data.ip || '未知'} - UA: ${userAgent}`;
                 
                 // 显示请求头信息
                 const headersContainer = document.getElementById('headers-container');
