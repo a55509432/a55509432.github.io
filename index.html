@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>访问者信息记录</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .info-section {
+            margin: 20px 0;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+            border-left: 4px solid #3498db;
+        }
+        
+        h2 {
+            color: #3498db;
+            margin-bottom: 10px;
+            font-size: 1.2em;
+        }
+        
+        .info-item {
+            margin: 8px 0;
+            padding: 5px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .info-item:last-child {
+            border-bottom: none;
+        }
+        
+        .label {
+            font-weight: bold;
+            color: #555;
+            display: inline-block;
+            width: 120px;
+        }
+        
+        .value {
+            color: #333;
+            word-break: break-all;
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 20px;
+            color: #666;
+        }
+        
+        .error {
+            text-align: center;
+            padding: 20px;
+            color: #e74c3c;
+            background-color: #fee;
+            border-radius: 5px;
+        }
+        
+        .footer {
+            margin-top: 30px;
+            text-align: center;
+            color: #666;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>访问者信息记录</h1>
+        
+        <div class="info-section">
+            <h2>基本信息</h2>
+            <div class="info-item">
+                <span class="label">访问时间:</span>
+                <span class="value" id="visit-time"></span>
+            </div>
+        </div>
+        
+        <div class="info-section">
+            <h2>IP信息</h2>
+            <div class="info-item">
+                <span class="label">客户端IP:</span>
+                <span class="value" id="client-ip"></span>
+            </div>
+        </div>
+        
+        <div class="info-section">
+            <h2>请求头信息</h2>
+            <div id="headers-container">
+                <div class="loading">加载中...</div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>使用 GitHub Pages + Serverless 函数构建</p>
+        </div>
+    </div>
+    
+    <script>
+        // 设置访问时间
+        document.getElementById('visit-time').textContent = new Date().toLocaleString('zh-CN');
+        
+        // 获取访问者信息
+        async function getVisitorInfo() {
+            try {
+                // 替换为你的Serverless函数URL
+                const response = await fetch('/api/visitor-info');
+                if (!response.ok) {
+                    throw new Error('获取信息失败');
+                }
+                const data = await response.json();
+                
+                // 显示IP信息
+                document.getElementById('client-ip').textContent = data.ip || '未知';
+                
+                // 显示请求头信息
+                const headersContainer = document.getElementById('headers-container');
+                headersContainer.innerHTML = '';
+                
+                if (data.headers) {
+                    Object.entries(data.headers).forEach(([key, value]) => {
+                        const infoItem = document.createElement('div');
+                        infoItem.className = 'info-item';
+                        infoItem.innerHTML = `
+                            <span class="label">${key}:</span>
+                            <span class="value">${value}</span>
+                        `;
+                        headersContainer.appendChild(infoItem);
+                    });
+                } else {
+                    headersContainer.innerHTML = '<div class="error">无法获取请求头信息</div>';
+                }
+                
+            } catch (error) {
+                console.error('错误:', error);
+                const headersContainer = document.getElementById('headers-container');
+                headersContainer.innerHTML = `<div class="error">${error.message}</div>`;
+            }
+        }
+        
+        // 页面加载时获取信息
+        window.onload = getVisitorInfo;
+    </script>
+</body>
+</html>
